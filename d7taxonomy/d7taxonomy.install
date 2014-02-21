@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Entity Object module, installation script.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function d7taxonomy_install() {
+  // Set module weight for it to run after most other modules.
+  db_query("UPDATE {system} SET weight = 10010 WHERE name = 'd7taxonomy' AND type = 'module'");
+}

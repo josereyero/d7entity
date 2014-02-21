@@ -1,0 +1,79 @@
+<?php
+/**
+ * @file
+ * Drupal Module: D7 Node
+ *
+ * By http://reyero.net
+ */
+
+use Drupal\d7node\NodeManager;
+use Drupal\d7entity\EntityHelper;
+
+/**
+ * Get node object of the right type.
+ *
+ * @param $object
+ *   Object, bundle name or NULL.
+ *
+ * @return Entity
+ *   Object wrapping the given entity.
+ */
+function d7node_object($object) {
+  return entity_object('node', $object);
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function d7node_entity_info_alter(&$entity_info) {
+  $entity_info['node']['controller class'] = '\Drupal\d7node\NodeController';
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for node_form().
+ */
+function d7node_form_node_form_alter(&$form, &$form_state, $form_id) {
+  NodeManager::hook_form_node_form_alter($form, $form_state, $form_id);
+}
+
+/**
+ * Implements hook_node_load()
+ */
+function d7node_node_load($nodes, $types) {
+  NodeManager::hook_node_load($nodes, $types);
+}
+
+/**
+ * Implements hook_node_view()
+ */
+function d7node_node_view($node, $view_mode, $langcode) {
+  NodeManager::hook_node_view($node, $view_mode, $langcode);
+}
+
+/**
+ * Implements hook_node_view_alter()
+ */
+function d7node_node_view_alter(&$build) {
+  NodeManager::hook_node_view_alter($build);
+}
+
+/**
+ * Implements hook_node_prepare().
+ */
+function d7node_node_prepare($node) {
+  NodeManager::hook_node_prepare($node);
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function d7node_node_presave($node) {
+  NodeManager::hook_node_presave($node);
+}
+
+/**
+ * Implements hook_preprocess_HOOK
+ */
+function d7node_preprocess_node(&$variables) {
+  NodeManager::hook_preprocess_node($variables);
+}

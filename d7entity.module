@@ -1,0 +1,79 @@
+<?php
+/**
+ * @file
+ * Drupal Module: D7 Entity
+ *
+ * By http://reyero.net
+ */
+
+use Drupal\d7entity\EntityHelper;
+use Drupal\d7entity\EntityManager;
+use Drupal\d7entity\EntityInterface;
+
+/**
+ * Get entity object of the right type.
+ *
+ * @param $entity_type
+ *  Entity type.
+ * @param $object
+ *   Object, bundle name or NULL.
+ *
+ * @return Entity
+ *   Object wrapping the given entity.
+ */
+function d7entity_object($entity_type, $object) {
+  return EntityHelper::checkObject($entity_type, $object);
+}
+
+/**
+ * Create object from values, can be used as creation callback.
+ */
+function d7entity_create($values, $entity_type) {
+  $entity = entity_create($entity_type, $values);
+  return EntityHelper::chechObject($entity_type, $entity);
+}
+
+/**
+ * Get entity object of the right type.
+ */
+function d7entity_multiple($entity_type, $values) {
+  foreach ($values as $index => $value) {
+    $values[$index] = d7entity_object($entity_type, $value);
+  }
+  return $values;
+}
+
+/**
+ * Implements hook_entity_load().
+ */
+function d7entity_entity_load($entities, $type) {
+  EntityManager::hook_entity_load($entities, $type);
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function d7entity_entity_presave($entity, $type) {
+  EntityManager::hook_entity_presave($entity, $type);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function d7entity_entity_update($entity, $type) {
+  EntityManager::hook_entity_update($entity, $type);
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function d7entity_entity_view($entity, $type) {
+  EntityManager::hook_entity_view($entity, $type);
+}
+
+/**
+ * Implements hook_entity_view_alter()
+ */
+function d7entity_entity_view_alter(&$build, $type) {
+  EntityManager::hook_entity_view_alter($build, $type);
+}

@@ -1,0 +1,8 @@
+name = D7Entity
+description = Wraps entities in real objects. This is an API module.
+core = 7.x
+php = 5.3
+package = D7
+dependencies[] = entity
+dependencies[] = xautoload
+
