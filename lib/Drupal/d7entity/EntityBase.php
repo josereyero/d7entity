@@ -197,7 +197,7 @@ abstract class EntityBase extends \stdClass implements EntityInterface {
    *
    * Wrapper for field_get_items()
    */
-  protected function fieldGetItems($field_name, $langcode = NULL) {
+  public function fieldGetItems($field_name, $langcode = NULL) {
     return field_get_items($this->entityType, $this, $field_name, $langcode);
   }
 
@@ -206,7 +206,7 @@ abstract class EntityBase extends \stdClass implements EntityInterface {
    *
    * @return value|FALSE
    */
-  protected function fieldGetValue($field_name, $value_key = NULL, $langcode = NULL) {
+  public function fieldGetValue($field_name, $value_key = NULL, $langcode = NULL) {
     if ($items = $this->fieldGetItems($field_name, $langcode)) {
       $first = reset($items);
       return isset($value_key) ? $first[$value_key] : $first;
