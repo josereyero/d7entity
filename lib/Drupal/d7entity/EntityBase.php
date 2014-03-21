@@ -201,6 +201,19 @@ abstract class EntityBase extends \stdClass implements EntityInterface {
     return field_get_items($this->entityType, $this, $field_name, $langcode);
   }
 
+  /**
+   * Get first field value
+   *
+   * @return value|FALSE
+   */
+  protected function fieldGetValue($field_name, $value_key = NULL, $langcode = NULL) {
+    if ($items = $this->fieldGetItems($field_name, $langcode)) {
+      $first = reset($items);
+      return isset($value_key) ? $first[$value_key] : $first;
+    }
+    return FALSE;
+  }
+
    /**
     * Get Entity wrapper.
     */

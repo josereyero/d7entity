@@ -1,4 +1,4 @@
-name = D7Entity
+name = D7 Entity
 description = Wraps entities in real objects. This is an API module.
 core = 7.x
 php = 5.3

@@ -25,7 +25,7 @@ function d7taxonomy_term_object($object) {
  * Implements hook_entity_info_alter().
  */
 function d7taxonomy_entity_info_alter(&$entity_info) {
-  $entity_info['taxonomy']['controller class'] = '\Drupal\d7taxonomy\TaxonomyTermController';
+  $entity_info['taxonomy_term']['controller class'] = '\Drupal\d7taxonomy\TaxonomyTermController';
 }
 
 /**
