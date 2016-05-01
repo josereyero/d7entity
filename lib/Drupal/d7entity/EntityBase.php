@@ -237,4 +237,36 @@ abstract class EntityBase extends \stdClass implements EntityInterface {
    public function getRdfMapping() {
      return rdf_mapping_load($this->entityType(), $this->bundle());
    }
+
+  /**
+   * Get referencing entities.
+   *
+   * Get a list of entities of the same type that refer to this one using an
+   * entityreference field.
+   *
+   * @return array
+   *   List of entities indexed by entity id.
+   */
+  function getReferencingEntities($field_name, $entity_type, $bundle_name = NULL, $property_conditions = array()) {
+    $query = new \EntityFieldQuery();
+    $query->entityCondition('entity_type', $entity_type)
+      ->fieldCondition($field_name, 'target_id', $this->identifier(), '=');
+    if (isset($bundle_name)) {
+       $query->entityCondition('bundle', $bundle_name);
+    }
+    foreach ($property_conditions as $property_name => $property_value) {
+      $query->propertyCondition($property_name, $property_value);
+    }
+    // Bypass user permissions.
+    $query->addMetaData('account', user_load(1));
+
+    $result = $query->execute();
+
+    $list = array();
+    if (!empty($result[$entity_type])) {
+      $list = entity_load($entity_type, array_keys($result[$entity_type]));
+    }
+    return $list;
+  }
+
  }
